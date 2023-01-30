@@ -12,7 +12,7 @@ resource "aws_instance" "Bastion" {
   }
 
   provisioner "file" {
-    content     = templatefile("templates/db-deploy.tmpl", { rds-endpoint = aws_db_instance.RDS.address, dbuser = var.dbuser, dbpass = var.dbpass })
+    content     = templatefile("templates/db-deploy.tmpl", { rds-endpoint = aws_db_instance.rds.address, dbuser = var.dbuser, dbpass = var.dbpass })
     destination = "/tmp/dbdeploy.sh"
   }
 
@@ -28,5 +28,5 @@ resource "aws_instance" "Bastion" {
     private_key = file(var.PRIV_KEY_PATH)
     host        = self.public_ip
   }
-  depends_on = [aws_db_instance.RDS]
+  depends_on = [aws_db_instance.rds]
 }

@@ -1,8 +1,8 @@
-resource "aws_db_subnet_group" "RDS-subgrp" {
+resource "aws_db_subnet_group" "rds-subgrp" {
   name       = "main"
   subnet_ids = [module.vpc.private_subnets[0], module.vpc.private_subnets[1], module.vpc.private_subnets[2]]
   tags = {
-    Name = "Subnet group for RDS"
+    Name = "Subnet group for rds"
   }
 }
 
@@ -12,20 +12,20 @@ resource "aws_elasticache_subnet_group" "elasticache-subgrp" {
 
 }
 
-resource "aws_db_instance" "RDS" {
+resource "aws_db_instance" "rds" {
   allocated_storage      = 20
   storage_type           = "gp2"
   engine                 = "mysql"
   engine_version         = "5.6.34"
   instance_class         = "db.t2.micro"
-  name                   = var.dbname
+  name                   = var.db_name
   username               = var.dbuser
   password               = var.dbpass
   parameter_group_name   = "default.mysql5.6"
   multi_az               = "false"
   publicly_accessible    = "false"
   skip_final_snapshot    = true
-  db_subnet_group_name   = aws_db_subnet_group.RDS-subgrp.name
+  db_subnet_group_name   = aws_db_subnet_group.rds-subgrp.name
   vpc_security_group_ids = [aws_security_group.Backend-sg.id]
 }
 
