@@ -18,7 +18,7 @@ resource "aws_db_instance" "rds" {
   engine                 = "mysql"
   engine_version         = "5.6.34"
   instance_class         = "db.t2.micro"
-  db_name = "accounts"
+  db_name                = "accounts"
   username               = var.dbuser
   password               = var.dbpass
   parameter_group_name   = "default.mysql5.6"
@@ -40,7 +40,7 @@ resource "aws_elasticache_cluster" "elasticache" {
   subnet_group_name    = aws_elasticache_subnet_group.elasticache-subgrp.name
 }
 
-resource "aws_mq_broker" "RMQ" {
+resource "aws_mq_broker" "rmq" {
   broker_name        = "RMQ"
   engine_type        = "ActiveMQ"
   engine_version     = "5.15.0"
